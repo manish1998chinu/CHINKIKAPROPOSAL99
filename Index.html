@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Akshita ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  color:#fff;
+  font-family:Arial, sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+/* COMMON SCREEN */
+.screen{
+  width:95%;
+  max-width:420px;
+  background:#111;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 0 30px rgba(0,0,0,.7);
+  text-align:center;
+}
+.hidden{display:none;}
+
+button{
+  padding:14px 26px;
+  border-radius:30px;
+  border:1px solid #444;
+  background:#000;
+  color:#fff;
+  font-size:18px;
+  margin-top:18px;
+}
+button:hover{transform:scale(1.05);}
+
+img{
+  border-radius:18px;
+  border:2px solid #444;
+  cursor:pointer;
+}
+
+/* DRAGON */
+.dragon{
+  font-size:130px;
+  cursor:pointer;
+  transition:transform .2s;
+}
+.burst{
+  animation:burst .5s forwards;
+}
+@keyframes burst{
+  to{transform:scale(3);opacity:0;}
+}
+
+/* PROPOSAL */
+#noBtn{background:#333;}
+#msg{min-height:22px;margin-top:10px;font-size:15px;}
+
+/* HUG */
+.hug{
+  font-size:130px;
+  animation:bounce 1.2s infinite;
+}
+@keyframes bounce{
+  50%{transform:translateY(-10px);}
+}
+
+/* VIDEO */
+.video-wrap{
+  width:100%;
+  max-height:60vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin-top:15px;
+  border-radius:18px;
+  border:2px solid #444;
+  background:#000;
+}
+.video-wrap video{
+  width:100%;
+  height:auto;
+  max-height:60vh;
+  object-fit:contain;
+}
+
+/* IMAGE ZOOM */
+#imgModal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.9);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+#imgModal img{
+  max-width:90%;
+  max-height:90%;
+  border-radius:20px;
+  border:3px solid #fff;
+}
+#imgModal span{
+  position:absolute;
+  top:20px;
+  right:25px;
+  font-size:32px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- IMAGE MODAL -->
+<div id="imgModal" onclick="closeImg()">
+  <span>&times;</span>
+  <img id="modalImg">
+</div>
+
+<!-- MUSIC -->
+<audio id="bgm" src="music/bg.mp3" loop></audio>
+
+<!-- 1 BIO -->
+<div class="screen" id="s1">
+<h3>Proposal for Akshita 🖤</h3>
+<p>
+Age: 27<br>
+CA Aspirant 📚<br>
+Favourite Colour: Black 🖤<br>
+Favourite Curry: Paneer Butter Masala 🍛<br>
+Attitude: Never Give Up 💪
+</p>
+<button onclick="startAndGo(2)">Continue</button>
+</div>
+
+<!-- 2 READY -->
+<div class="screen hidden" id="s2">
+<h3>Are you ready for the game? 🎮</h3>
+<button onclick="go(3)">Yes, I’m ready ⚔️</button>
+</div>
+
+<!-- 3 DRAGON -->
+<div class="screen hidden" id="s3">
+<h3>Defeat the Dragon 🐉</h3>
+<div class="dragon" id="dragon">🐉</div>
+<p>Hits left: <b id="hits">15</b></p>
+</div>
+
+<!-- 4 REWARD -->
+<div class="screen hidden" id="s4">
+<h3>Reward Unlocked 🎁</h3>
+<img src="manish/manish.jpg"
+     onclick="openImg(this.src)"
+     style="width:260px;height:340px;object-fit:cover;margin-top:15px">
+<p>A warrior deserves to be seen 😌</p>
+<button onclick="go(5)">Next</button>
+</div>
+
+<!-- 5 DIALOGUE -->
+<div class="screen hidden" id="s5">
+<p><b>Akshita:</b><br>Tum kaise the?</p>
+<p><b>Manish:</b><br>Main acha tha…</p>
+<button onclick="go(6)">Continue</button>
+</div>
+
+<!-- 6 CONFESSION -->
+<div class="screen hidden" id="s6">
+<p style="text-align:left;line-height:1.6">
+<b>Manish:</b><br><br>
+Tum sirf meri pasand nahi ho,<br>
+tum meri aadat ban chuki ho.<br><br>
+Main perfect hone ka wada nahi karta,<br>
+lekin jab bhi tumhe meri zarurat hogi,<br>
+main tumhare saath khada rahunga.
+</p>
+<button onclick="go(7)">Continue ❤️</button>
+</div>
+
+<!-- 7 PROPOSAL -->
+<div class="screen hidden" id="s7">
+<h3>Will you be my partner for life? 💍</h3>
+<button onclick="handleYes()">YES 💖</button>
+<button id="noBtn">NO 🙈</button>
+<p id="msg"></p>
+</div>
+
+<!-- 8 AFTER YES -->
+<div class="screen hidden" id="s8">
+<div style="display:flex;gap:12px;justify-content:center;margin-top:18px">
+  <img src="akshita/a1.jpg" onclick="openImg(this.src)" style="width:130px;height:180px;object-fit:cover">
+  <img src="akshita/a2.jpg" onclick="openImg(this.src)" style="width:130px;height:180px;object-fit:cover">
+  <img src="akshita/a3.jpg" onclick="openImg(this.src)" style="width:130px;height:180px;object-fit:cover">
+</div>
+<button onclick="go(9)">❤️</button>
+</div>
+
+<!-- 9 HUG -->
+<div class="screen hidden" id="s9">
+<div class="hug">🤍🤗</div>
+<p>And then they lived happily…</p>
+<button onclick="stopMusicAndGo(10)">🎬</button>
+</div>
+
+<!-- 10 VIDEO -->
+<div class="screen hidden" id="s10">
+<h3>Just one more moment 🎥</h3>
+<div class="video-wrap">
+  <video id="finalVideo" autoplay muted playsinline controls>
+    <source src="video/happy.mp4" type="video/mp4">
+  </video>
+</div>
+<button onclick="stopVideoAndGo(11)">Next 🍫</button>
+</div>
+
+<!-- 11 END -->
+<div class="screen hidden" id="s11">
+<h3>Wait for the Chocolate Day 🍫</h3>
+<p>Mere boondi ke ladoo 💛</p>
+</div>
+
+<script>
+const bgm = document.getElementById("bgm");
+const dragon = document.getElementById("dragon");
+const hitsText = document.getElementById("hits");
+const noBtn = document.getElementById("noBtn");
+const msg = document.getElementById("msg");
+const video = document.getElementById("finalVideo");
+const modal = document.getElementById("imgModal");
+const modalImg = document.getElementById("modalImg");
+
+/* NAV */
+function startAndGo(n){
+  if(bgm.paused) bgm.play();
+  go(n);
+}
+function stopMusicAndGo(n){
+  bgm.pause();
+  go(n);
+}
+function go(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.add("hidden"));
+  document.getElementById("s"+n).classList.remove("hidden");
+}
+
+/* DRAGON */
+let hits=15, scale=1;
+dragon.addEventListener("click",()=>{
+  hits--; scale+=0.08;
+  dragon.style.transform=`scale(${scale})`;
+  hitsText.innerText=hits;
+  if(hits<=0){
+    dragon.classList.add("burst");
+    setTimeout(()=>go(4),500);
+  }
+});
+
+/* PROPOSAL */
+let noCount=0, noDone=false;
+function handleYes(){
+  if(!noDone){
+    msg.innerText="Pehle NO try karo 😌";
+    return;
+  }
+  go(8);
+}
+noBtn.addEventListener("click",()=>{
+  noCount++;
+  noBtn.style.transform=`scale(${1+noCount*0.2})`;
+  if(noCount>=7){
+    noBtn.classList.add("burst");
+    msg.innerText="Aapke paas sirf YES ka hi option hai ❤️";
+    noDone=true;
+    setTimeout(()=>noBtn.style.display="none",400);
+  }
+});
+
+/* VIDEO */
+function stopVideoAndGo(n){
+  video.pause();
+  video.currentTime=0;
+  go(n);
+}
+
+/* IMAGE ZOOM */
+function openImg(src){
+  modal.style.display="flex";
+  modalImg.src=src;
+}
+function closeImg(){
+  modal.style.display="none";
+}
+</script>
+
+</body>
+</html>
